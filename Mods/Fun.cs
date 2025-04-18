@@ -1,4 +1,4 @@
-﻿using ExitGames.Client.Photon;
+using ExitGames.Client.Photon;
 using GorillaTagScripts;
 using Photon.Pun;
 using UnityEngine;
@@ -12,6 +12,7 @@ namespace StupidTemplate.Mods
     internal class Fun
     {
         public static Vector3 startpos;
+        public static float teleportDelay = 0f;
         public static void EnterFun()
         {
             buttonsType = 7;
