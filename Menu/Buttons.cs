@@ -14,7 +14,7 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "Visual", method =() => Visual.EnterVisual(), isTogglable = false, toolTip = "Opens the visual page."},
                 new ButtonInfo { buttonText = "Fun", method =() => Fun.EnterFun(), isTogglable = false, toolTip = "Opens the fun page."},
                 new ButtonInfo { buttonText = "Overpowered", method =() => Overpowered.EnterOverpowered(), isTogglable = false, toolTip = "Opens the overpowered page."},
-                new ButtonInfo { buttonText = "Saftey", method =() => Saftey.EnterSaftey(), isTogglable = false, toolTip = "Opens the saftey page."},
+                new ButtonInfo { buttonText = "Safety", method =() => Saftey.EnterSaftey(), isTogglable = false, toolTip = "Opens the Safety page."},
                 new ButtonInfo { buttonText = "Movement", method =() => Movement.EnterMovement(), isTogglable = false, toolTip = "Opens the movement page."},
                 new ButtonInfo { buttonText = "Cosmetics", method =() => Cosmetics.EnterCosmetics(), isTogglable = false, toolTip = "Opens the cosmetics page. (CS COSMETICS)"},
                 new ButtonInfo { buttonText = "togglable placeholder 4"},
@@ -36,9 +36,11 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "FPS Counter", enableMethod =() => SettingsMods.EnableFPSCounter(), disableMethod =() => SettingsMods.DisableFPSCounter(), enabled = fpsCounter, toolTip = "Toggles the FPS counter."},
                 new ButtonInfo { buttonText = "Disconnect Button", enableMethod =() => SettingsMods.EnableDisconnectButton(), disableMethod =() => SettingsMods.DisableDisconnectButton(), enabled = disconnectButton, toolTip = "Toggles the disconnect button."},
                 new ButtonInfo { buttonText = "Latest Update?", method =() => SettingsMods.CheckVersion(), isTogglable = false, toolTip = "Checks if you have the latest version."},
+                new ButtonInfo { buttonText = "Change Long arm length", method =() => SettingsMods.ChangeLongArmLength(), isTogglable = false, toolTip = " "},
+                new ButtonInfo { buttonText = "Change Platform Type", method =() => SettingsMods.ChangePlatformType(), isTogglable = false, toolTip = " "},
             },
 
-            new ButtonInfo[] { // Movement Settings
+            new ButtonInfo[] { // Advantages Settings
                 new ButtonInfo { buttonText = "Return to Settings", method =() => SettingsMods.EnterSettings(), isTogglable = false, toolTip = "Returns to the main settings page for the menu."},
             },
 
@@ -51,7 +53,7 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "WASD Fly", method =() => Advantages.WASDFly(), isTogglable = true},
                 new ButtonInfo { buttonText = "Low Gravity", method =() => Advantages.LowGrav(), isTogglable = true, toolTip = "Low gravity"},
                 new ButtonInfo { buttonText = "High Gravity", method =() => Advantages.HighGrav(), isTogglable = true, toolTip = "High gravity"},
-                new ButtonInfo { buttonText = "Long Arms", enableMethod =() => Advantages.EnableLongArms(), disableMethod =() => Advantages.DisableLongArms(), toolTip = "Long arms"},
+                new ButtonInfo { buttonText = "Long Arms", enableMethod =() => Advantages.EnableLongArms(), disableMethod =() => Advantages.DisableLongArms(), toolTip = "Long arms (Changable in settings)"},
                 new ButtonInfo { buttonText = "Weak Speed Boost", method =() => Advantages.WeakSpeedBoost(), isTogglable = true, toolTip = "Just a weak speed boost"},
                 new ButtonInfo { buttonText = "GhostMonke", method =() => Advantages.GhostMonke(), isTogglable = true, toolTip = "Ghost monke"},
                 new ButtonInfo { buttonText = "Normal Speed Boost", method =() => Advantages.NormalSpeedBoost(), isTogglable = true, toolTip = "Just a normal speed boost"},
@@ -79,9 +81,13 @@ namespace StupidTemplate.Menu
             },
             new ButtonInfo[] { // Overpowed
                 new ButtonInfo { buttonText = "Return to Main", method =() => Global.ReturnHome(), isTogglable = false, toolTip = "Returns to the main page of the menu."},
-                new ButtonInfo { buttonText = "Lag all (D?)", method =() => Overpowered.EnterOverpowered(), isTogglable = true, toolTip = "Lags everyone."},
+                new ButtonInfo { buttonText = "Lag all (D?)", method =() => Overpowered.LagAll(), isTogglable = true, toolTip = "Lags everyone."},
                 new ButtonInfo { buttonText = "Flush RPCS", method =() => Overpowered.FlushRPCS(), isTogglable = false},
                 new ButtonInfo { buttonText = "Snowball Gun", method =() => Overpowered.SnowballGun(), isTogglable = true, toolTip = "Snow ball gun."},
+                new ButtonInfo { buttonText = "No tag on join", enableMethod =() => Overpowered.NoTagOnJoin(), disableMethod =() => Overpowered.TagOnJoin(), toolTip = "Doesnt let you get tagged on join"},
+                new ButtonInfo { buttonText = "Set Region to EU", method =() => Overpowered.RegionEU(), isTogglable = false, toolTip = "Sets your region to EU"},
+                new ButtonInfo { buttonText = "Set Region to US", method =() => Overpowered.RegionUS(), isTogglable = false, toolTip = "Sets your region to US"},
+                new ButtonInfo { buttonText = "Set Region to USW", method =() => Overpowered.RegionUSW(), isTogglable = false, toolTip = "Sets your region to USW"},
             },
             new ButtonInfo[] { // Saftey
                 new ButtonInfo { buttonText = "Return to Main", method =() => Global.ReturnHome(), isTogglable = false, toolTip = "Returns to the main page of the menu."},
@@ -94,8 +100,12 @@ namespace StupidTemplate.Menu
             new ButtonInfo[] { // Movement
                 new ButtonInfo { buttonText = "Return to Main", method =() => Global.ReturnHome(), isTogglable = false, toolTip = "Returns to the main page of the menu."},
                 new ButtonInfo { buttonText = "Swim everywhere", enableMethod =() => Movement.EnableSwimEverywhere(), disableMethod =() => Movement.DisableSwimEverywhere(), toolTip = "NW?"},
-                new ButtonInfo { buttonText = "Normal Platforms", method =() => Movement.CubePlatforms(), isTogglable = true, toolTip = "Normal platforms." },
+                new ButtonInfo { buttonText = "Platforms", method =() => Movement.Platforms(), isTogglable = true, toolTip = "Platforms." },
+                new ButtonInfo { buttonText = "Super Slow Fly", method =() => Movement.SuperSlowFly(), isTogglable = true, toolTip = "Super Slow Fly." },
                 new ButtonInfo { buttonText = "Slow Fly", method =() => Movement.SlowFly(), isTogglable = true, toolTip = "Slow Fly." },
+                new ButtonInfo { buttonText = "Normal Fly", method =() => Movement.NormalFly(), isTogglable = true, toolTip = "Normal Fly." },
+                new ButtonInfo { buttonText = "Up And Down", method =() => Movement.UpAndDown(), isTogglable = true, toolTip = "Right grab to go down, right trigger to go up" },
+                new ButtonInfo { buttonText = "TP Gun", method =() => Movement.TpGun(), isTogglable = true, toolTip = "Working?" },
             },
             new ButtonInfo[] { // Cosmetics
                 new ButtonInfo { buttonText = "Return to Main", method =() => Global.ReturnHome(), isTogglable = false, toolTip = "Returns to the main page of the menu."},
