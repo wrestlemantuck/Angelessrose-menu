@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using HarmonyLib;
 using StupidTemplate.Classes;
 using StupidTemplate.Notifications;
@@ -17,13 +17,12 @@ namespace StupidTemplate.Menu
 {
     internal class StartupMods : MonoBehaviour
     {
-        async void Start()
+        void Start()
         {
-            await Task.Delay(2000);
             CustomMOTD();
             SettingsMods.CheckVer();
         }
-        public static void CustomMOTD()
+        void CustomMOTD()
         {
             GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motd (1)").GetComponent<TextMeshPro>().text = "Thank you for using Angelessrose menu";
             GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motdtext").GetComponent<TextMeshPro>().text = "All stuff made by wrestle";
