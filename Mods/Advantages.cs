@@ -76,7 +76,18 @@ namespace StupidTemplate.Mods
         }
         public static void EnableLongArms()
         {
-            GorillaLocomotion.GTPlayer.Instance.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            if (LongArmsLength == "Normal")
+            {
+                GorillaLocomotion.GTPlayer.Instance.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            }
+            if (LongArmsLength == "Medium")
+            {
+                GorillaLocomotion.GTPlayer.Instance.transform.localScale = new Vector3(1.6f, 1.6f, 1.6f);
+            }
+            if (LongArmsLength == "Large")
+            {
+                GorillaLocomotion.GTPlayer.Instance.transform.localScale = new Vector3(1.9f, 1.9f, 1.9f);
+            }
         }
         public static void DisableLongArms()
         {
