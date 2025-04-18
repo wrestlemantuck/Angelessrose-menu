@@ -1,4 +1,4 @@
-﻿using StupidTemplate.Classes;
+using StupidTemplate.Classes;
 using UnityEngine;
 using static StupidTemplate.Menu.Main;
 
@@ -24,6 +24,8 @@ namespace StupidTemplate
         public static bool disconnectButton = true;
         public static bool rightHanded = false;
         public static bool disableNotifications = false;
+        public static string LongArmsLength = "Normal";
+        public static string PlatformsType = "Normal";
 
         public static KeyCode keyboardButton = KeyCode.Q;
 
