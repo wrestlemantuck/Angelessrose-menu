@@ -1,4 +1,4 @@
-﻿using ExitGames.Client.Photon;
+using ExitGames.Client.Photon;
 using GorillaTagScripts;
 using Photon.Pun;
 using UnityEngine;
@@ -15,6 +15,7 @@ using Photon.Realtime;
 using static Mono.Security.X509.X520;
 using StupidTemplate.Notifications;
 using UnityEngine.Animations.Rigging;
+using StupidTemplate.Classes;
 
 namespace StupidTemplate.Mods
 {
@@ -107,6 +108,36 @@ namespace StupidTemplate.Mods
             }
             var counter = 0;
             projectile.Launch(pos, vel, NetworkSystem.Instance.LocalPlayer, false, false, counter++, 1, true, col);
+        }
+        public static void NoTagOnJoin()
+        {
+            PlayerPrefs.SetString("tutorial", "nope");
+            PlayerPrefs.SetString("didTutorial", "nope");
+            Hashtable hash = new Hashtable();
+            hash.Add("didTutorial", false);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash, null, null);
+            PlayerPrefs.Save();
+        }
+        public static void TagOnJoin()
+        {
+            PlayerPrefs.SetString("tutorial", "done");
+            PlayerPrefs.SetString("didTutorial", "done");
+            Hashtable hash = new Hashtable();
+            hash.Add("didTutorial", true);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash, null, null);
+            PlayerPrefs.Save();
+        }
+        public static void RegionEU()
+        {
+            PhotonNetwork.ConnectToRegion("eu");
+        }
+        public static void RegionUS()
+        {
+            PhotonNetwork.ConnectToRegion("us");
+        }
+        public static void RegionUSW()
+        {
+            PhotonNetwork.ConnectToRegion("usw");
         }
     }
 }
