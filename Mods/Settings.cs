@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine.Networking;
 using static StupidTemplate.Menu.Main;
 using static StupidTemplate.Settings;
@@ -11,7 +11,7 @@ namespace StupidTemplate.Mods
 {
     internal class SettingsMods
     {
-        public const string Version21 = "1.5.8";
+        public const string Version21 = "1.7.4";
         public static string url = "https://pastebin.com/raw/iwTifmTH";
         public static void EnterSettings()
         {
@@ -23,7 +23,7 @@ namespace StupidTemplate.Mods
             buttonsType = 2;
         }
 
-        public static void MovementSettings()
+        public static void AdvantageSettings()
         {
             buttonsType = 3;
         }
@@ -102,12 +102,44 @@ namespace StupidTemplate.Mods
                 }
             }
         }
-    }
-    public class CoroutineRunner : MonoBehaviour
-    {
-        private void Awake()
+        public static void ChangeLongArmLength()
         {
-            DontDestroyOnLoad(gameObject);
+            if (LongArmsLength == "Normal")
+            {
+                LongArmsLength = "Medium";
+                NotifiLib.SendNotification("Changed long arm length to medium");
+            }
+            else if (LongArmsLength == "Medium")
+            {
+                LongArmsLength = "Large";
+                NotifiLib.SendNotification("Changed long arm length to large");
+            }
+            else if (LongArmsLength == "Large")
+            {
+                LongArmsLength = "Normal";
+                NotifiLib.SendNotification("Changed long arm length to normal");
+            }
+        }
+        public static void ChangePlatformType()
+        {
+            if (PlatformsType == "Normal")
+            {
+                PlatformsType = "Invis";
+                NotifiLib.SendNotification("Changed long arm length to Invis");
+            }
+            else if (PlatformsType == "Invis")
+            {
+                PlatformsType = "Normal";
+                NotifiLib.SendNotification("Changed platform type to Normal");
+            }
+
+        }
+        public class CoroutineRunner : MonoBehaviour
+        {
+            private void Awake()
+            {
+                DontDestroyOnLoad(gameObject);
+            }
         }
     }
 }
