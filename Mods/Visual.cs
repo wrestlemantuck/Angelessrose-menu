@@ -1,4 +1,4 @@
-﻿using StupidTemplate.Notifications;
+using StupidTemplate.Notifications;
 using Photon.Pun;
 using Photon.Realtime;
 using Photon.Voice.Unity;
