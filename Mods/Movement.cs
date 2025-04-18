@@ -1,4 +1,4 @@
-﻿using ExitGames.Client.Photon;
+using ExitGames.Client.Photon;
 using GorillaTagScripts;
 using Photon.Pun;
 using UnityEngine;
@@ -16,6 +16,7 @@ namespace StupidTemplate.Mods
     {
         private static GameObject leftplat = null;
         private static GameObject rightplat = null;
+        public static float TPDelay = 0f;
         public static void EnterMovement()
         {
             buttonsType = 10;
@@ -49,30 +50,58 @@ namespace StupidTemplate.Mods
                 createdwater = null;
             }
         }
-        public static void CubePlatforms()
+        public static void Platforms()
 
         {
-            if (ControllerInputPoller.instance.leftGrab && leftplat == null)
+            if (PlatformsType == "Normal")
             {
-                leftplat = CreateCubePlatformOnHand(GorillaTagger.Instance.leftHandTransform);
+                if (ControllerInputPoller.instance.leftGrab && leftplat == null)
+                {
+                    leftplat = CreateCubePlatformOnHand(GorillaTagger.Instance.leftHandTransform);
+                }
+
+                if (ControllerInputPoller.instance.rightGrab && rightplat == null)
+                {
+                    rightplat = CreateCubePlatformOnHand(GorillaTagger.Instance.rightHandTransform);
+                }
+
+                if (ControllerInputPoller.instance.rightGrabRelease && rightplat != null)
+                {
+                    rightplat.Disable();
+                    rightplat = null;
+
+                }
+
+                if (ControllerInputPoller.instance.leftGrabRelease && leftplat != null)
+                {
+                    leftplat.Disable();
+                    leftplat = null;
+                }
             }
-
-            if (ControllerInputPoller.instance.rightGrab && rightplat == null)
+            else if (PlatformsType == "Invis")
             {
-                rightplat = CreateCubePlatformOnHand(GorillaTagger.Instance.rightHandTransform);
-            }
+                if (ControllerInputPoller.instance.leftGrab && leftplat == null)
+                {
+                    leftplat = CreateInvisCubePlatformOnHand(GorillaTagger.Instance.leftHandTransform);
+                }
 
-            if (ControllerInputPoller.instance.rightGrabRelease && rightplat != null)
-            {
-                rightplat.Disable();
-                rightplat = null;
+                if (ControllerInputPoller.instance.rightGrab && rightplat == null)
+                {
+                    rightplat = CreateInvisCubePlatformOnHand(GorillaTagger.Instance.rightHandTransform);
+                }
 
-            }
+                if (ControllerInputPoller.instance.rightGrabRelease && rightplat != null)
+                {
+                    rightplat.Disable();
+                    rightplat = null;
 
-            if (ControllerInputPoller.instance.leftGrabRelease && leftplat != null)
-            {
-                leftplat.Disable();
-                leftplat = null;
+                }
+
+                if (ControllerInputPoller.instance.leftGrabRelease && leftplat != null)
+                {
+                    leftplat.Disable();
+                    leftplat = null;
+                }
             }
         }
         private static GameObject CreateCubePlatformOnHand(Transform handTransform)
@@ -87,57 +116,76 @@ namespace StupidTemplate.Mods
             plat.GetComponent<Renderer>().material.color = Color.black;
             return plat;
         }
-        public static void SpherePlatforms()
-
+        private static GameObject CreateInvisCubePlatformOnHand(Transform handTransform)
         {
-            if (ControllerInputPoller.instance.leftGrab && leftplat == null)
-            {
-                leftplat = CreateSpherePlatformOnHand(GorillaTagger.Instance.leftHandTransform);
-            }
-
-            if (ControllerInputPoller.instance.rightGrab && rightplat == null)
-            {
-                rightplat = CreateSpherePlatformOnHand(GorillaTagger.Instance.rightHandTransform);
-            }
-
-            if (ControllerInputPoller.instance.rightGrabRelease && rightplat != null)
-            {
-                rightplat.Disable();
-                rightplat = null;
-
-            }
-
-            if (ControllerInputPoller.instance.leftGrabRelease && leftplat != null)
-            {
-                leftplat.Disable();
-                leftplat = null;
-            }
-        }
-        private static GameObject CreateSpherePlatformOnHand(Transform handTransform)
-        {
-            GameObject plat = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            plat.transform.localScale = new Vector3(0.333f, 0.333f, 0.333f);
+            GameObject plat = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            plat.transform.localScale = new Vector3(0.025f, 0.3f, 0.4f);
 
             plat.transform.position = handTransform.position;
             plat.transform.rotation = handTransform.rotation;
 
-            float h = (Time.frameCount / 180f) % 1f;
-            plat.GetComponent<Renderer>().material.color = Color.black;
+            plat.GetComponent<Renderer>().enabled = false;
+
             return plat;
+        }
+        public static void SuperSlowFly()
+        {
+            if (ControllerInputPoller.instance.rightControllerPrimaryButton)
+            {
+                GorillaLocomotion.GTPlayer.Instance.transform.position += GorillaLocomotion.GTPlayer.Instance.rightControllerTransform.transform.forward * Time.deltaTime * 5f;
+                GorillaLocomotion.GTPlayer.Instance.bodyCollider.attachedRigidbody.velocity = Vector3.zero;
+            }
         }
         public static void SlowFly()
         {
             if (ControllerInputPoller.instance.rightControllerPrimaryButton)
             {
-                Vector3 righthandpos = GorillaTagger.Instance.rightHandTransform.position;
-                Vector3 playerpos = GorillaLocomotion.GTPlayer.Instance.transform.position;
-                Vector3 direction = (righthandpos - playerpos).normalized;
-
-                Vector3 movement = direction * Time.deltaTime * 3;
-
-                Rigidbody playerRigidbody = GorillaLocomotion.GTPlayer.Instance.GetComponent<Rigidbody>();
-                playerRigidbody.velocity = movement;
+                GorillaLocomotion.GTPlayer.Instance.transform.position += GorillaLocomotion.GTPlayer.Instance.rightControllerTransform.transform.forward * Time.deltaTime * 10f;
+                GorillaLocomotion.GTPlayer.Instance.bodyCollider.attachedRigidbody.velocity = Vector3.zero;
             }
         }
+        public static void NormalFly()
+        {
+            if (ControllerInputPoller.instance.rightControllerPrimaryButton)
+            {
+                GorillaLocomotion.GTPlayer.Instance.transform.position += GorillaLocomotion.GTPlayer.Instance.rightControllerTransform.transform.forward * Time.deltaTime * 17f;
+                GorillaLocomotion.GTPlayer.Instance.bodyCollider.attachedRigidbody.velocity = Vector3.zero;
+            }
+        }
+        public static void UpAndDown()
+        {
+            if (ControllerInputPoller.instance.rightGrab)
+            {
+                GorillaLocomotion.GTPlayer.Instance.GetComponent<Rigidbody>().AddForce(new Vector3(0f, -15f, 0f), ForceMode.Acceleration);
+            }
+            if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.1f)
+            {
+                GorillaLocomotion.GTPlayer.Instance.GetComponent<Rigidbody>().AddForce(new Vector3(0f, 15f, 0f), ForceMode.Acceleration);
+            }
+        }
+        public static void TpGun()
+        {
+            if (ControllerInputPoller.instance.rightGrab)
+            {
+                Ray ray = new Ray(GorillaTagger.Instance.rightHandTransform.position, GorillaTagger.Instance.rightHandTransform.forward);
+                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green);
+
+                if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.5f && TPDelay <= 0f)
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 100f))
+                    {
+                        GorillaTagger.Instance.transform.position = hit.point + Vector3.up * 1f;
+                        TPDelay = 0.1f;
+                    }
+                }
+            }
+
+            if (TPDelay > 0f)
+            {
+                TPDelay -= Time.deltaTime;
+            }
+        }
+
     }
 }
