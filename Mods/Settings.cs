@@ -11,7 +11,7 @@ namespace StupidTemplate.Mods
 {
     internal class SettingsMods
     {
-        public const string Version21 = "1.7.4";
+        public const string Version21 = "1.7.5";
         public static string url = "https://pastebin.com/raw/iwTifmTH";
         public static void EnterSettings()
         {
