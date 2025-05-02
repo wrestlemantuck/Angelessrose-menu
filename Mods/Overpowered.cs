@@ -16,13 +16,20 @@ using static Mono.Security.X509.X520;
 using StupidTemplate.Notifications;
 using UnityEngine.Animations.Rigging;
 using StupidTemplate.Classes;
+using UnityEngine.InputSystem;
 
 namespace StupidTemplate.Mods
 {
     internal class Overpowered
     {
+        private static GameObject gunSphere;
+        private static LineRenderer lineRenderer;
+        private static float timeCounter = 0f;
+        private static Vector3[] linePositions;
+        private static Vector3 previousControllerPosition;
         private static float LagThing;
-        public static float delaything = 0f;
+        public static float delayThing = 0f;
+        
         public static void EnterOverpowered()
         {
             buttonsType = 8;
@@ -138,6 +145,94 @@ namespace StupidTemplate.Mods
         public static void RegionUSW()
         {
             PhotonNetwork.ConnectToRegion("usw");
+        }
+        public static void TagGun()
+        {
+            if (ControllerInputPoller.instance.rightControllerGripFloat > 0.1f || UnityInput.Current.GetMouseButton(1))
+            {
+                if (Physics.Raycast(GorillaLocomotion.GTPlayer.Instance.rightControllerTransform.position, -GorillaLocomotion.GTPlayer.Instance.rightControllerTransform.up, out var hitInfo))
+                {
+                    if (Mouse.current.rightButton.isPressed)
+                    {
+                        Camera cam = GameObject.Find("Shoulder Camera").GetComponent<Camera>();
+                        Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+                        Physics.Raycast(ray, out hitInfo, 100);
+                    }
+
+                    if (gunSphere == null)
+                    {
+                        gunSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                        gunSphere.transform.localScale = new Vector3(0f, 0f, 0f);
+                        gunSphere.GetComponent<Renderer>().material.shader = Shader.Find("GorillaTag/UberShader");
+                        gunSphere.GetComponent<Renderer>().material.color = Color.white;
+                        GameObject.Destroy(gunSphere.GetComponent<BoxCollider>());
+                        GameObject.Destroy(gunSphere.GetComponent<Rigidbody>());
+                        GameObject.Destroy(gunSphere.GetComponent<Collider>());
+
+                        lineRenderer = gunSphere.AddComponent<LineRenderer>();
+                        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+                        lineRenderer.widthCurve = AnimationCurve.Linear(0, 0.01f, 1, 0.01f);
+                        lineRenderer.startColor = Color.white;
+                        lineRenderer.endColor = Color.white;
+
+                        linePositions = new Vector3[50];
+                        for (int i = 0; i < linePositions.Length; i++)
+                        {
+                            linePositions[i] = GorillaLocomotion.GTPlayer.Instance.rightControllerTransform.position;
+                        }
+                    }
+
+                    gunSphere.transform.position = hitInfo.point;
+
+                    timeCounter += Time.deltaTime;
+
+                    Vector3 pos1 = GorillaLocomotion.GTPlayer.Instance.rightControllerTransform.position;
+                    Vector3 direction = (hitInfo.point - pos1).normalized;
+                    float distance = Vector3.Distance(pos1, hitInfo.point);
+
+                    Vector3 controllerMovement = pos1 - previousControllerPosition;
+                    previousControllerPosition = pos1;
+
+                    if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.1f || Mouse.current.leftButton.isPressed)
+                    {
+                        TagPlayer(hitInfo.collider.gameObject);
+                    }
+
+                    for (int i = 0; i < linePositions.Length; i++)
+                    {
+                        float t = i / (float)(linePositions.Length - 1);
+                        Vector3 lerpedPosition = Vector3.Lerp(pos1, hitInfo.point, t);
+
+                        linePositions[i] += controllerMovement * 0.5f;
+                        linePositions[i] += UnityEngine.Random.insideUnitSphere * 0.01f;
+                        linePositions[i] = Vector3.Lerp(linePositions[i], lerpedPosition, Time.deltaTime * 5f);
+                    }
+
+                    lineRenderer.positionCount = linePositions.Length;
+                    lineRenderer.SetPositions(linePositions);
+
+                    float pingPongTime = Mathf.PingPong(timeCounter, 1f);
+                    Color lineColor = Color.Lerp(Color.white, Color.cyan, pingPongTime);
+                    lineRenderer.startColor = lineColor;
+                    lineRenderer.endColor = lineColor;
+                }
+            }
+
+            if (gunSphere != null && (ControllerInputPoller.instance.rightControllerGripFloat <= 0.1f && !UnityInput.Current.GetMouseButton(1)))
+            {
+                GameObject.Destroy(gunSphere);
+                GameObject.Destroy(lineRenderer);
+                timeCounter = 0f;
+                linePositions = null;
+            }
+        }
+        public static void TagPlayer(GameObject hitObject)
+        {
+            if (hitObject.CompareTag("Player"))
+            {
+                GorillaLocomotion.GTPlayer.Instance.rightControllerTransform.position = hitObject.transform.position;
+                NotifiLib.SendNotification("Tagged player?");
+            }
         }
     }
 }
