@@ -186,6 +186,22 @@ namespace StupidTemplate.Mods
                 TPDelay -= Time.deltaTime;
             }
         }
-
+        public static void Noclip()
+        {
+        if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.001f)
+        {
+            foreach (MeshCollider meshCollider in Resources.FindObjectsOfTypeAll<MeshCollider>())
+            {
+                meshCollider.enabled = false;
+            }
+        }
+        else
+        {
+        foreach (MeshCollider meshCollider2 in Resources.FindObjectsOfTypeAll<MeshCollider>())
+        {
+            meshCollider2.enabled = true;
+        }
+        }
+        }
     }
 }
