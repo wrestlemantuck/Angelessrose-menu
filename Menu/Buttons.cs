@@ -17,11 +17,6 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "Safety", method =() => Saftey.EnterSaftey(), isTogglable = false, toolTip = "Opens the Safety page."},
                 new ButtonInfo { buttonText = "Movement", method =() => Movement.EnterMovement(), isTogglable = false, toolTip = "Opens the movement page."},
                 new ButtonInfo { buttonText = "Cosmetics", method =() => Cosmetics.EnterCosmetics(), isTogglable = false, toolTip = "Opens the cosmetics page. (CS COSMETICS)"},
-                new ButtonInfo { buttonText = "togglable placeholder 4"},
-                new ButtonInfo { buttonText = "regular placeholder 5", isTogglable = false},
-                new ButtonInfo { buttonText = "togglable placeholder 5"},
-                new ButtonInfo { buttonText = "regular placeholder 6", isTogglable = false},
-                new ButtonInfo { buttonText = "togglable placeholder 6"},
             },
 
             new ButtonInfo[] { // Settings
@@ -53,6 +48,7 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "WASD Fly", method =() => Advantages.WASDFly(), isTogglable = true},
                 new ButtonInfo { buttonText = "Low Gravity", method =() => Advantages.LowGrav(), isTogglable = true, toolTip = "Low gravity"},
                 new ButtonInfo { buttonText = "High Gravity", method =() => Advantages.HighGrav(), isTogglable = true, toolTip = "High gravity"},
+                new ButtonInfo { buttonText = "No Gravity", method =() => Advantages.NoGrav(), isTogglable = true, toolTip = "No gravity"},
                 new ButtonInfo { buttonText = "Long Arms", enableMethod =() => Advantages.EnableLongArms(), disableMethod =() => Advantages.DisableLongArms(), toolTip = "Long arms (Changable in settings)"},
                 new ButtonInfo { buttonText = "Weak Speed Boost", method =() => Advantages.WeakSpeedBoost(), isTogglable = true, toolTip = "Just a weak speed boost"},
                 new ButtonInfo { buttonText = "GhostMonke", method =() => Advantages.GhostMonke(), isTogglable = true, toolTip = "Ghost monke"},
@@ -88,6 +84,7 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "Set Region to EU", method =() => Overpowered.RegionEU(), isTogglable = false, toolTip = "Sets your region to EU"},
                 new ButtonInfo { buttonText = "Set Region to US", method =() => Overpowered.RegionUS(), isTogglable = false, toolTip = "Sets your region to US"},
                 new ButtonInfo { buttonText = "Set Region to USW", method =() => Overpowered.RegionUSW(), isTogglable = false, toolTip = "Sets your region to USW"},
+                new ButtonInfo { buttonText = "Tag Gun", method =() => Overpowered.TagGun(), isTogglable = true, toolTip = "tag gun?"},
             },
             new ButtonInfo[] { // Saftey
                 new ButtonInfo { buttonText = "Return to Main", method =() => Global.ReturnHome(), isTogglable = false, toolTip = "Returns to the main page of the menu."},
@@ -96,6 +93,8 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "Spoof Name", method =() => Saftey.SpoofName(), isTogglable = false, toolTip = " "},
                 new ButtonInfo { buttonText = "Spam Spoof Name", method =() => Saftey.SpamSpoofName(), isTogglable = true, toolTip = " "},
                 new ButtonInfo { buttonText = "Reconnect", method =() => Saftey.Reconnect(), isTogglable = false, toolTip = "Working?"},
+                new ButtonInfo { buttonText = "Spoof Support Page (W?)", method =() => Saftey.SpoofSupportPage(), isTogglable = true, toolTip = "Makes the support page think you are on oculus and a diffrent build code."},
+                new ButtonInfo { buttonText = "Join Random Lobby", method =() => Other.JoinRandomLobby(), isTogglable = false, toolTip = "Joins a random lobby"},
             },
             new ButtonInfo[] { // Movement
                 new ButtonInfo { buttonText = "Return to Main", method =() => Global.ReturnHome(), isTogglable = false, toolTip = "Returns to the main page of the menu."},
@@ -106,6 +105,7 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "Normal Fly", method =() => Movement.NormalFly(), isTogglable = true, toolTip = "Normal Fly." },
                 new ButtonInfo { buttonText = "Up And Down", method =() => Movement.UpAndDown(), isTogglable = true, toolTip = "Right grab to go down, right trigger to go up" },
                 new ButtonInfo { buttonText = "TP Gun", method =() => Movement.TpGun(), isTogglable = true, toolTip = "Working?" },
+                new ButtonInfo { buttonText = "Noclip", method =() => Movement.Noclip(), isTogglable = true, toolTip = "Noclip." },
             },
             new ButtonInfo[] { // Cosmetics
                 new ButtonInfo { buttonText = "Return to Main", method =() => Global.ReturnHome(), isTogglable = false, toolTip = "Returns to the main page of the menu."},
