@@ -13,6 +13,7 @@ namespace StupidTemplate.Mods
 {
     internal class Advantages
     {
+        
         public static void EnterAdvanages()
         {
             buttonsType = 5;
@@ -52,6 +53,14 @@ namespace StupidTemplate.Mods
             }
 
             GorillaLocomotion.GTPlayer.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        public static void NoGrav()
+        {
+            Rigidbody rb = GorillaLocomotion.GTPlayer.Instance?.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+            rb.useGravity = false;
+            }
         }
         public static void LowGrav()
         {
