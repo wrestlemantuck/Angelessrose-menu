@@ -128,5 +128,9 @@ namespace StupidTemplate.Mods
                 PhotonNetwork.JoinRoom(roomName);
             }
         }
+        public static void SpoofSupportPage()
+        {
+            GorillaComputer.instance.screenText.Text = GorillaComputer.instance.screenText.Text.Replace("STEAM", "QUEST").Replace(GorillaComputer.instance.buildDate, "09/01/2020 12:42:42\nBUILD CODE 9882\nMANAGED ACCOUNT: NO");
+        }
     }
 }
